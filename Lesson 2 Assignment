@@ -1,0 +1,19 @@
+first_name = input("Enter your first name: ")
+
+last_name = input("Enter your last name: ")
+
+current_year = int(input("Enter the current year: "))
+
+birth_year = int(input("Enter the year you were born: "))
+
+age = int(current_year - birth_year)
+
+print("Hello", first_name, last_name,
+    "\nYou are", age, "in", current_year)
+
+age += 1
+
+print(f"You will be", age, "in", (current_year + 1))
+print()
+print("---------------------")
+print("Completed by, Tanner Alba")
