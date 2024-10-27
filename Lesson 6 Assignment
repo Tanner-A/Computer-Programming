@@ -1,0 +1,48 @@
+def main():
+
+    students_info = {}
+
+    def add_student(name, student_id, gpa, credits_completed, grades):
+        students_info[name] = {
+            'ID': student_id,
+            'GPA': gpa,
+            'Credits': credits_completed,
+            'Grades': grades
+            }
+
+    add_student('Janet', 201, 3.2, 47, ['A-', 'B+', 'A-', 'B+'])
+    add_student('Bobby', 202, 3.5, 27, ['B-', 'C+', 'A', 'B-'])
+    add_student('Ricky', 203, 2.9, 56, ['A+', 'A', 'B+', 'A-'])
+    
+    print("Student Information")
+    print(students_info)
+
+    print("\nStudent Names:")
+    for name in students_info.keys():
+        print(name)
+
+    print("\nStudent Information:")
+    print(f"{'Name':<10}\t{'ID':<5}\t{'GPA':<5}\t{'Credits':<20}\t{'Grades'}")
+
+    for name, info in students_info.items():
+        print(f"{name:<10}\t{info['ID']:<5}\t{info['GPA']:<5}\t{info['Credits']:<20}\t{', '.join(info['Grades'])}")
+
+    print("\nJanet has dropped out")
+    removed_student = students_info.pop('Janet', None)
+    print(f"Removed Student: {removed_student}")
+
+    print("Updated Student Information:")
+    print(students_info)
+          
+    print("\nGathering students GPA info")
+    for name, info in students_info.items():
+        gpa = students_info.get(name)['GPA']
+        print(f"{name}'s GPA: {gpa}")
+
+    print("\nClearing the Student Registry:")
+    students_info.clear()
+
+if __name__ == "__main__":
+    main()
+
+print("\nCompleted by, Tanner Alba")
