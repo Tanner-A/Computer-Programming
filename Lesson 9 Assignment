@@ -1,0 +1,56 @@
+import locale as lc
+
+lc.setlocale(lc.LC_ALL, "us")
+
+def total_income():
+    while True:
+        try:
+            income = input("Please enter your monthly income: ")
+            income = float(income)
+
+            if income < 0:
+                print("Monthly income cannot be negative. Enter a valid monthly income.")
+            else:
+                return income
+        except ValueError:
+            print("Invalid input. Please enter a valid number for your income.")
+
+def user_expenses():
+    expenses = []
+    while True:
+        try:
+            expense_input = input("Enter an expense amount (or 0 to exit): ")
+
+            if expense_input == '0':
+                return expenses
+
+            expense_int = float(expense_input)
+
+            if expense_int < 0:
+                print("Expense cannot be negative. Enter a valid expense.")
+            else:
+                expenses.append(expense_int)
+
+        except ValueError:
+            print("Invalid input. Please enter a valid value for the expense.")
+
+    return expenses
+
+def main():
+    print("Welcome to the Budget Tracker")
+
+    income = total_income()
+    expenses = user_expenses()
+
+    total_expense = sum(expenses)
+    leftover_budget = income - total_expense
+
+    print(f"\nYour budget summary:")
+    print(f"Total Income: {lc.currency(income, grouping=True)}")
+    print(f"Total Expense: {lc.currency(total_expense, grouping=True)}")
+    print(f"Leftover Budget: {lc.currency(leftover_budget, grouping=True)}")
+    
+    print("\nCompleted by, Tanner Alba")
+
+if __name__ == "__main__":
+    main()
