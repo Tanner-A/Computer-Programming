@@ -1,0 +1,110 @@
+import csv
+import os
+
+def create_csv_file(filename):
+    try:
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Phone", "Email"])
+        print(f"File '{filename}' created successfully.")
+    except Exception as e:
+        print(f"Error creating file: {e}")
+
+def add_contact(filename):
+    name = input("Enter the contact's name: ")
+    phone = input("Enter the contact's phone number: ")
+    email = input("Enter the contact's email address: ")
+    
+    try:
+        with open(filename, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([name, phone, email])
+        print(f"Contact '{name}' added successfully.")
+    except Exception as e:
+        print(f"Error adding contact: {e}")
+
+def view_contacts(filename):
+    try:
+        with open(filename, mode='r') as file:
+            reader = csv.reader(file)
+            next(reader)
+            print("\nContacts List:")
+            for row in reader:
+                print(f"Name: {row[0]}, Phone: {row[1]}, Email: {row[2]}")
+    except Exception as e:
+        print(f"Error reading contacts: {e}")
+
+def edit_contact(filename):
+    try:
+        with open(filename, mode='r') as file:
+            reader = csv.reader(file)
+            contacts = list(reader)
+        
+        contacts = contacts[1:]
+
+        if not contacts:
+            print("No contacts found to edit.")
+            return
+        
+        print("\nContacts to Edit:")
+        for index, contact in enumerate(contacts, start=1):
+            print(f"{index}. Name: {contact[0]}, Phone: {contact[1]}, Email: {contact[2]}")
+        
+        contact_index = int(input("\nEnter the number of the contact you want to edit: ")) - 1
+
+        if contact_index < 0 or contact_index >= len(contacts):
+            print("Invalid selection. Contact not found.")
+            return
+        
+        new_name = input(f"Enter new name (current: {contacts[contact_index][0]}): ")
+        new_phone = input(f"Enter new phone number (current: {contacts[contact_index][1]}): ")
+        new_email = input(f"Enter new email (current: {contacts[contact_index][2]}): ")
+
+        contacts[contact_index] = [new_name, new_phone, new_email]
+
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Phone", "Email"])
+            writer.writerows(contacts)
+        
+        print("Contact updated successfully.")
+    except Exception as e:
+        print(f"Error editing contact: {e}")
+
+def main():
+    filename = 'contacts.csv'
+    
+    print("Welcome to the Contact Management Program.")
+    
+    if not os.path.exists(filename):
+        create_csv_file(filename)
+
+    while True:
+        print("\nSelect an option:")
+        print("1 - Create a new contact CSV file")
+        print("2 - Add a new contact")
+        print("3 - View all contacts")
+        print("4 - Edit an existing contact")
+        print("5 - Exit")
+        
+        option = input("Enter your choice (1-5): ")
+        
+        if option == '1':
+            create_csv_file(filename)
+        elif option == '2':
+            add_contact(filename)
+        elif option == '3':
+            view_contacts(filename)
+        elif option == '4':
+            edit_contact(filename)
+        elif option == '5':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
+print ("Completed by, Tanner Alba")
