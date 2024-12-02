@@ -1,0 +1,55 @@
+def get_user_input(prompt):
+    user_input = input(prompt)
+    return user_input
+
+def find_substring(main_string, sub_string):
+    
+    index = main_string.find(sub_string)
+    if index != -1:
+        print(f"The '{sub_string}' substring was found at index {index}.")
+        return index
+    else:
+        print("The substring was not found.")
+        return -1
+
+def ask_replace():
+    
+    while True:
+        replace_choice = input("Do you want to replace the substring? (yes/no): ").strip().lower()
+        if replace_choice == 'yes':
+            return True
+        elif replace_choice == 'no':
+            return False
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
+
+def replace_substring(main_string, sub_string, new_string):
+    
+    updated_string = main_string.replace(sub_string, new_string)
+    print(f"Updated string: {updated_string}")
+    return updated_string
+
+def main():
+    
+    print("Welcome to the Substring Finder and Replacer program!")
+
+    
+    main_string = get_user_input("Enter the main string to search through: ")
+    sub_string = get_user_input("Enter the substring to search for: ")
+
+    
+    index = find_substring(main_string, sub_string)
+
+    
+    if index != -1:
+        if ask_replace():
+            new_string = get_user_input("Enter the new string to replace the substring: ")
+            main_string = replace_substring(main_string, sub_string, new_string)
+        else:
+            print("No replacement was made.")
+    
+    print("Thank you for using the program!")
+    print("Completed by, Tanner Alba")
+
+if __name__ == "__main__":
+    main()
